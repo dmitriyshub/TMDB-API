@@ -2,6 +2,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from imdb_id import imdb_movie_id as get_id
 
 def configure():
     load_dotenv()
@@ -35,7 +36,7 @@ def use_data(config):
 def available_poster():
     KEY = os.getenv('api_key')
     IMG_PATTERN = 'http://api.themoviedb.org/3/movie/{imdbid}/images?api_key={key}'
-    r = requests.get(IMG_PATTERN.format(key=KEY, imdbid='tt0095016'))
+    r = requests.get(IMG_PATTERN.format(key=KEY, imdbid='tt0133093'))
     api_response = r.json()
     return api_response
 
@@ -58,6 +59,11 @@ def download_poster(poster_url):
 
 def main():
     configure()
+    # TODO: adding functionality with movie id
+    # movie_name = input("which movie?")
+    # movie_id = get_id(movie_name)
+    # print(movie_id)
+
     max_size, base_url = use_data(get_data())
     poster_url = poster_urls(available_poster(),base_url,max_size)
     download_poster(poster_url)

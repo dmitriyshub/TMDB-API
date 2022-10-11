@@ -29,3 +29,29 @@ class TMDBDownloader:
         ob = imdb.IMDb()
         search = ob.search_movie(name)
         return "tt" + str(search[0].movieID)
+
+    def getPoster(self, imdbid, name):
+        api_response = requests.get(self.CONFIG_PATTERN.format(key=self.KEY, imdbid=imdbid)).json()
+        posters = api_response['posters']
+        posters_urls = []
+        for poster in posters:
+            poster_path = poster['file_path']
+            url = "{0}{1}{2}".format(self.base_url,self.max_size,poster_path)
+            posters_urls.append(url)
+
+        r = requests.get(posters_urls[0])
+        filetype = r.headers['content-type'].split('/')[-1]
+        filename = 'poster_{0}.{1}'.format(name, filetype)
+        with open(self.content_path + filename, 'wb') as w:
+            w.write(r.content)
+
+        return filename
+
+    def search_downloader(self,name):
+
+        imdb_id = self.getIMDBID(name)
+        file_name = self.getPoster(imdb_id, name)
+        return imdb_id, file_name
+
+
+

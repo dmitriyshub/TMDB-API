@@ -1,4 +1,8 @@
 #git ignore file
+*/config.py
+Class/config.py
+Class/content
+Class/content/*
 
 .env
 .env/*

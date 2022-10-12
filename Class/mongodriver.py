@@ -36,6 +36,8 @@ class MongoDriver:
             # store/put the image via GridFs object.
             self.fs.put(contents, filename=filename)
 
+
+
     def read_image(self,filename):
         '''
         cRud
@@ -50,12 +52,22 @@ class MongoDriver:
     def save_image(self, image_bin, imagename='image.jpeg'):
         '''
         cRud
+        save image on disk
         :param image_bin: binary image
         :param imagename: name of the image
 
         '''
         with open(f'{imagename}.jpeg', 'wb') as outfile:
             outfile.write(image_bin)  # Write your data
+
+    def update_image(self,filename):
+        # TODO !
+        '''
+        crUd
+        :param filename:
+        :return:
+        '''
+        pass
 
 
     def delete_image_id(self,file_id):
@@ -67,6 +79,14 @@ class MongoDriver:
         '''
         self.fs.delete(file_id)
 
+    def delete_image_name(self,filename):
+        # TODO
+        '''
+        cruD
+        :param filename:
+        :return:
+        '''
+        pass
 
 
 

@@ -1,8 +1,10 @@
+from flask import Flask, request, json , Response
 from pymongo import MongoClient
-import json
 import gridfs
+#import json
+
 #from bson import Regex
-from bson import ObjectId
+#from bson import ObjectId
 
 
 class MongoDriver:
@@ -23,6 +25,34 @@ class MongoDriver:
 
     def __str__(self):
         print(self.mongo.list_database_names())
+
+    def read(self):
+        documents = self.collection.find()
+        output = [{item: data[item] for item in data if item != '_id'} for data in documents]
+        return output
+
+    def write(self, data):
+        #log.info('Writing Data')
+        new_document = data['Document']
+        response = self.collection.insert_one(new_document)
+        output = {'Status': 'Successfully Inserted',
+                  'Document_ID': str(response.inserted_id)}
+        return output
+
+
+    def update(self):
+        filt = self.database['Filter']
+        updated_data = {"$set": self.database['DataToBeUpdated']}
+        response = self.collection.update_one(filt, updated_data)
+        output = {'Status': 'Successfully Updated' if response.modified_count > 0 else "Nothing was updated."}
+        return output
+
+
+    def delete(self, data):
+        filt = data['Document']
+        response = self.collection.delete_one(filt)
+        output = {'Status': 'Successfully Deleted' if response.deleted_count > 0 else "Document not found."}
+        return output
 
     def add_image(self,filename):
         '''
@@ -122,8 +152,7 @@ class MongoDriver:
         return self.fs.get(filename)
 
     def find_images(self, filename):
-        data = self.fs.get_last_version(filename).read()
-        return data
+        pass
         # for f in self.fs.find({'filename': Regex(r'.*\.(png|jpg)')}):
         #     data = f.read()
         #     return data
@@ -137,8 +166,10 @@ if __name__ == "__main__":
     print(test2)
 
     file_id = test.find_image_id('poster_matrix.jpeg') # get file id by name
+    print(json.dumps(test.read(), indent=4))
 
-    test.delete_image_name('XXX')
+    #print(test.find_images('poster_matrix.jpeg'))
+    #test.delete_image_name('XXX')
 
     #image = test.read_image('poster_matrix.jpeg') # save bytearray of image
 

@@ -1,5 +1,6 @@
 requests
 python-dotenv
 imdbpy
-cinemagoer
+#cinemagoer
 pymongo
+flask

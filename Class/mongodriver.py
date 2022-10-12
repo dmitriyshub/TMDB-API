@@ -36,8 +36,29 @@ class MongoDriver:
             # store/put the image via GridFs object.
             self.fs.put(contents, filename=filename)
 
+    def read_image(self,filename):
+        '''
+        cRud
+        read binary image
+        :param filename:
+        :return: binary image
+        '''
 
-    def delete_image(self,file_id):
+        image_bin = self.fs.get_last_version(filename).read()
+        return image_bin
+
+    def save_image(self, image_bin, imagename='image.jpeg'):
+        '''
+        cRud
+        :param image_bin: binary image
+        :param imagename: name of the image
+
+        '''
+        with open(f'{imagename}.jpeg', 'wb') as outfile:
+            outfile.write(image_bin)  # Write your data
+
+
+    def delete_image_id(self,file_id):
         '''
         cruD
         delete image from database
@@ -47,12 +68,13 @@ class MongoDriver:
         self.fs.delete(file_id)
 
 
-    def read_image(self):
-        # TODO ask omri about this method
-        a = self.database.fi
-        return a
+
 
     def get_collections(self):
+        '''
+        list collections name
+        :return: str
+        '''
         client = self.mongo
         d = dict((db, [collection for collection in client[db].list_collection_names()])
                  for db in client.list_database_names())
@@ -60,7 +82,7 @@ class MongoDriver:
 
     def find_image_id(self,filename):
         '''
-
+        find the image id by image name
         :param filename:
         :return: file id
         '''
@@ -91,12 +113,15 @@ class MongoDriver:
 
 
 if __name__ == "__main__":
-    test = MongoDriver()
-    test.add_image('poster_matrix.jpeg')
+    test = MongoDriver() # init object
+    #test.add_image('poster_matrix.jpeg') # create
     test2 = test.get_collections()
     print(test2)
     file_id = test.find_image_id('poster_matrix.jpeg')
-    #test.delete_image(file_id)
+    image = test.read_image('poster_matrix.jpeg')
+
+    #
+
 
     #test3 = test.get_image()
     #print(test3)

@@ -1,22 +1,25 @@
 from pymongo import MongoClient
 import json
 import gridfs
-from bson import Regex
+#from bson import Regex
+from bson import ObjectId
 
-
-###################################################
 
 class MongoDriver:
 
-    def __init__(self):
+    def __init__(self,ip,port,database,collection):
         # Connect to the server with the hostName and portNumber.
-        self.mongo = MongoClient("localhost", 27017, maxPoolSize=50)
+        self.mongo = MongoClient(ip, port, maxPoolSize=50)
 
         # Connect to the Database where the images will be stored.
-        self.database = self.mongo['movie_posters']
+        self.database = self.mongo[database]
+
+        # Connect to the Collection in the Database
+        self.collection = self.database[collection]
 
         # Create an object of GridFs for the above database.
         self.fs = gridfs.GridFS(self.database)
+
 
     def __str__(self):
         print(self.mongo.list_database_names())
@@ -60,14 +63,19 @@ class MongoDriver:
         with open(f'{imagename}.jpeg', 'wb') as outfile:
             outfile.write(image_bin)  # Write your data
 
-    def update_image(self,filename):
+    def update_image(self,filename, newfilename):
         # TODO !
         '''
         crUd
         :param filename:
         :return:
         '''
-        pass
+        # a = self.collection.name
+        # self.collection.update_one(ObjectId(image_id))
+
+        file_name_kv = {'filename' : filename}
+        new_file_name_kv = {'$set' : {'filename' : newfilename}}
+        self.collection.update_one(file_name_kv, new_file_name_kv)
 
 
     def delete_image_id(self,file_id):
@@ -86,9 +94,8 @@ class MongoDriver:
         :param filename:
         :return:
         '''
-        pass
-
-
+        file_id = self.find_image_id(filename)
+        self.collection.delete_one({'_id': file_id})
 
     def get_collections(self):
         '''
@@ -110,18 +117,10 @@ class MongoDriver:
             file_id = x._id
             return file_id
 
-
     def get_image(self, filename):
         #self.fs.get_last_version(filename).read()
-        self.fs.get(filename)
+        return self.fs.get(filename)
 
-        # client = self.mongo
-        # db = client.localhost
-        # collection = db['movie_posters']
-        # cursor = collection
-        #
-        # a = []
-        # print(cursor)
     def find_images(self, filename):
         data = self.fs.get_last_version(filename).read()
         return data
@@ -129,21 +128,33 @@ class MongoDriver:
         #     data = f.read()
         #     return data
 
-
-
-
 if __name__ == "__main__":
-    test = MongoDriver() # init object
-    #test.add_image('poster_matrix.jpeg') # create
-    test2 = test.get_collections()
-    print(test2)
-    file_id = test.find_image_id('poster_matrix.jpeg')
-    image = test.read_image('poster_matrix.jpeg')
+    test = MongoDriver("localhost", 27017, "movie_posters", "fs.files") # init object
 
-    #
+    #test.add_image('poster_matrix.jpeg') # add image to db
+
+    test2 = test.get_collections() # get collection names
+    print(test2)
+
+    file_id = test.find_image_id('poster_matrix.jpeg') # get file id by name
+
+    test.delete_image_name('XXX')
+
+    #image = test.read_image('poster_matrix.jpeg') # save bytearray of image
+
+    #test.save_image(image, imagename='poster_matrix.jpeg') # save image to disk
+
+    #test.update_image('poster_fight club.jpeg', 'XXX') # update image name
+
+    #test.update_image()
 
 
     #test3 = test.get_image()
     #print(test3)
     #a = test.find_images('image')
-    #test.get_image('6345e0538734846ce0afe743')
+    # a = test.get_image(file_id)
+    # print(a)
+    # a.write('aaaa')
+
+
+

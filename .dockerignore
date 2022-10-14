@@ -1,0 +1,18 @@
+#docker ignore file
+
+.git
+.gitignore
+.idea
+.cache
+*.md
+__pycache__
+**/__pycache__
+venv
+
+
+secret
+secret/*
+First
+First/*
+*.jpeg
+**/*.jpeg

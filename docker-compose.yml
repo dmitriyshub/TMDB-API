@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    build: .
+    volumes:
+      - ./secret:/app/secret
+    depends_on:
+      - db_host
+    ports:
+        - "8080:8080"
+  db_host:
+    image: mongo:latest
+    ports:
+      - "27017:27017"

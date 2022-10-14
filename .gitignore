@@ -1,8 +1,8 @@
 #git ignore file
-*/config.py
-Class/config.py
-Class/content
-Class/content/*
+config.py
+content
+content/*
 
-.env
-.env/*
+#first project
+First/MODfirst/.env
+First/MODfirst/.env/*

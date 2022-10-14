@@ -22,6 +22,7 @@ class TMDBDownloader:
         self.name = ""
         self.imdb_id=""
 
+
     def getIMDBID(self, name):
         '''
         get the movie id from imdb
@@ -69,9 +70,11 @@ class TMDBDownloader:
 
 def main():
     connector = TMDBDownloader()
-    connector.search_downloader("fight club")
+    connector.search_downloader("terminal")
 
 if __name__ == '__main__':
-
-    main()
+    '''
+    test TMDB module
+    '''
+    #main()
 

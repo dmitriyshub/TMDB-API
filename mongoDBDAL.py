@@ -2,17 +2,19 @@ import os
 import pymongo
 import gridfs
 class MongoDBDAL:
+    content_path = "content/"
     """
     Data Access Layer for mongodb
     in order to save big files we need to use GridFS
     mongodb solution for large binary files
     """
-    def __init__(self, db_name, ip='local host',port=27017):
+    def __init__(self, db_name, ip='localhost',port=27017):
         """"creating client and gridfs object"""
         self.client= pymongo.MongoClient(ip, port)
         self.database = self.client[db_name]
         # Create an object of GridFs for the above database.
         self.fs = gridfs.GridFS(self.database)
+        #self.image_dir = "content/"
     def write_image_file(self, file_name, movie_name, imdb_code):
         """
         add image file to db
@@ -33,7 +35,7 @@ class MongoDBDAL:
         """
         file = self.fs.find_one({"movie_name": movie_name}).read()
 
-        with open(movie_name + ".jpeg", 'wb') as w:
+        with open(self.content_path + movie_name + ".jpeg", 'wb') as w:
             w.write(file)
         return file
 
@@ -75,11 +77,11 @@ class MongoDBDAL:
 
 if __name__ == "__main__":
     """
-    test module
+    test Mongo module
     """
-    mdb = MongoDBDAL("movies","localhost", 27017)
+    #mdb = MongoDBDAL("movies","localhost", 27017)
 
     #mdb.write_image_file(config.content_temp_path + "poster_matrix.jpeg", "matrix", "tt0123465")
-    print(mdb.read_image_file("matrix"))
+    #print(mdb.read_image_file("matrix"))
     #mdb.update_image_file_meta_data("star wars","imdb_code","no no no no no")
     #mdb.del_image_file("spiderman")

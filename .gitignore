@@ -1,7 +1,8 @@
 #git ignore file
+
 config.py
-content
-content/*
+
+content/*.jpeg
 
 #first project
 First/MODfirst/.env

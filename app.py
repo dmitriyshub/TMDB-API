@@ -2,7 +2,7 @@ from flask import Flask, request, json , Response, render_template, make_respons
 from mongoDBDAL import MongoDBDAL
 from TMDBDownloader import TMDBDownloader
 from config import content_temp_path
-from base64 import b64encode, b64decode
+from base64 import b64encode
 
 app = Flask(__name__)
 mdb = MongoDBDAL("movies", ip='localhost', port=27017)

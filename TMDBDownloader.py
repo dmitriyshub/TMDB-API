@@ -6,9 +6,8 @@ from config import TMDB_API_Key_v3_auth
 def size_str_to_int(x):
     return float("inf") if x == 'original' else int(x[1:])
 
-
 class TMDBDownloader:
-    content_path = "./content/"
+    content_path = "content/"
 
     def __init__(self):
         self.CONFIG_PATTERN = 'http://api.themoviedb.org/3/configuration?api_key={key}' #url format
@@ -38,8 +37,8 @@ class TMDBDownloader:
             id = search[i].movieID
             list_ids.append(id)
         print(list_ids)
-        self.imdb_id = "tt" + str(list_ids[0])
-        return self.imdb_id
+        imdb_id = "tt" + str(list_ids[0])
+        return imdb_id
 
     def getPoster(self, imdbid):
         api_response = requests.get(self.IMG_PATTERN.format(key=self.KEY, imdbid=imdbid)).json()
@@ -70,7 +69,7 @@ class TMDBDownloader:
 
 def main():
     connector = TMDBDownloader()
-    connector.search_downloader("matrix")
+    connector.search_downloader("fight club")
 
 if __name__ == '__main__':
 

@@ -1,8 +1,6 @@
 import os
 import pymongo
 import gridfs
-import codecs
-import config #this file conteins the key - shouldnt be in git, find automation sol for secrets
 class MongoDBDAL:
     """
     Data Access Layer for mongodb

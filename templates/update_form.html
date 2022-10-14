@@ -6,10 +6,24 @@
         <body>
             <div id="container">
                 <div class="form">
-                    <form action="/search" method="POST">
+                    <form action="/update" method="POST">
                         <div id="input-1">
                             <label for="name">Insert Movie Name:</label>
                             <input type="text" name="name" id='name' required>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div id="input-2">
+                            <label for="name">Key to Update(movie_name | imdb_code):</label>
+                            <input type="text" name="key" id='key' required>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div id="input-3">
+                            <label for="name">Value to Update:</label>
+                            <input type="text" name="value" id='value' required>
                         </div>
                         <br>
                         <br>
@@ -21,5 +35,7 @@
                 </div>
 
             </div>
+
+
         </body>
     </html>

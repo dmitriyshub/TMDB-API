@@ -9,12 +9,20 @@ import gridfs
 
 class MongoDriver:
 
-    def __init__(self,ip,port,database,collection):
+    def __init__(self, data, ip='localhost',port=27017):
+
+        database = data['database']
+        collection = data['collection']
+
         # Connect to the server with the hostName and portNumber.
-        self.mongo = MongoClient(ip, port, maxPoolSize=50)
+        self.client = MongoClient(ip, port, maxPoolSize=50)
+
+        cursor = self.client[database]
 
         # Connect to the Database where the images will be stored.
-        self.database = self.mongo[database]
+        self.database = self.client[database]
+
+        self.data = data
 
         # Connect to the Collection in the Database
         self.collection = self.database[collection]
@@ -24,7 +32,7 @@ class MongoDriver:
 
 
     def __str__(self):
-        print(self.mongo.list_database_names())
+        print(self.client.list_database_names())
 
     def read(self):
         documents = self.collection.find()
@@ -33,7 +41,7 @@ class MongoDriver:
 
     def write(self, data):
         #log.info('Writing Data')
-        new_document = data['Document']
+        new_document = data['filename']
         response = self.collection.insert_one(new_document)
         output = {'Status': 'Successfully Inserted',
                   'Document_ID': str(response.inserted_id)}
@@ -54,7 +62,7 @@ class MongoDriver:
         output = {'Status': 'Successfully Deleted' if response.deleted_count > 0 else "Document not found."}
         return output
 
-    def add_image(self,filename):
+    def add_image(self,data):
         '''
         Crud
         add image to database
@@ -62,12 +70,16 @@ class MongoDriver:
         :return:
         '''
         # define an image object with the location. TODO add movie name from imdb from the api class
+        filename = data['filename']
         image_name = f"content\{filename}"
         # Open the image in read-only format.
         with open(image_name, 'rb') as f:
             contents = f.read()
             # store/put the image via GridFs object.
-            self.fs.put(contents, filename=filename)
+            response = self.fs.put(contents, filename=filename)
+
+
+
 
 
 
@@ -105,7 +117,8 @@ class MongoDriver:
 
         file_name_kv = {'filename' : filename}
         new_file_name_kv = {'$set' : {'filename' : newfilename}}
-        self.collection.update_one(file_name_kv, new_file_name_kv)
+        a = self.collection.update_one(file_name_kv, new_file_name_kv)
+        return a.upserted_id
 
 
     def delete_image_id(self,file_id):
@@ -132,7 +145,7 @@ class MongoDriver:
         list collections name
         :return: str
         '''
-        client = self.mongo
+        client = self.client
         d = dict((db, [collection for collection in client[db].list_collection_names()])
                  for db in client.list_database_names())
         return json.dumps(d)
@@ -158,9 +171,15 @@ class MongoDriver:
         #     return data
 
 if __name__ == "__main__":
-    test = MongoDriver("localhost", 27017, "movie_posters", "fs.files") # init object
+    data = {
+        "database": "movie_posters",
+        "collection": "fs.files",
+        "filename": "poster_matrix.jpeg"
+    }
 
-    #test.add_image('poster_matrix.jpeg') # add image to db
+    test = MongoDriver(data) # init object
+
+    #test.add_image(data) # add image to db
 
     test2 = test.get_collections() # get collection names
     print(test2)
@@ -171,9 +190,9 @@ if __name__ == "__main__":
     #print(test.find_images('poster_matrix.jpeg'))
     #test.delete_image_name('XXX')
 
-    #image = test.read_image('poster_matrix.jpeg') # save bytearray of image
+    image = test.read_image('poster_matrix.jpeg') # save bytearray of image
 
-    #test.save_image(image, imagename='poster_matrix.jpeg') # save image to disk
+    print(test.save_image(image, imagename='poster_matrix.jpeg')) # save image to disk
 
     #test.update_image('poster_fight club.jpeg', 'XXX') # update image name
 

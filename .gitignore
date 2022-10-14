@@ -1,6 +1,6 @@
 #git ignore file
 
-config.py
+secret/config.py
 
 content/*.jpeg
 

@@ -1,13 +1,13 @@
-from flask import Flask, request, json , Response, render_template, make_response
+from flask import Flask, request, json , Response, render_template
 from mongoDBDAL import MongoDBDAL
 from TMDBDownloader import TMDBDownloader
-from config import content_temp_path
+#from secret.config import content_temp_path
 from base64 import b64encode
 
 app = Flask(__name__)
-mdb = MongoDBDAL("movies", ip='localhost', port=27017)
+mdb = MongoDBDAL("movies", "db_host", 27017)
 TMDB = TMDBDownloader()
-
+content_temp_path= "content/"
 @app.route('/')
 def base():
     return Response(response=json.dumps({"Status": "UP"}),
@@ -40,4 +40,4 @@ def read(search_string):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True, port=8080, host='0.0.0.0')

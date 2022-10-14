@@ -8,8 +8,8 @@ class MongoDBDAL:
     in order to save big files we need to use GridFS
     mongodb solution for large binary files
     """
-    def __init__(self, db_name, ip='localhost',port=27017):
-        """"creating client and gridfs object"""
+    def __init__(self, db_name, ip='db_host',port=27017):
+        """creating client and gridfs object"""
         self.client= pymongo.MongoClient(ip, port)
         self.database = self.client[db_name]
         # Create an object of GridFs for the above database.

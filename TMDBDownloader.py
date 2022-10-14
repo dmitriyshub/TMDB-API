@@ -1,7 +1,6 @@
 import requests
 import imdb
-#from dotenv import load_dotenv
-from config import TMDB_API_Key_v3_auth
+from secret.config import TMDB_API_Key_v3_auth
 
 def size_str_to_int(x):
     return float("inf") if x == 'original' else int(x[1:])
@@ -70,11 +69,11 @@ class TMDBDownloader:
 
 def main():
     connector = TMDBDownloader()
-    connector.search_downloader("terminal")
+    connector.search_downloader("spiderman")
 
 if __name__ == '__main__':
     '''
     test TMDB module
     '''
-    #main()
+    main()
 

@@ -1,6 +1,5 @@
-requests
-python-dotenv
-imdbpy
+requests==2.28.1
+IMDbPY==2022.7.9
 #cinemagoer
-pymongo
-flask
+pymongo==4.2.0
+Flask==2.2.2

@@ -19,13 +19,13 @@
          source = "hashicorp/random"
        }
      }
-       cloud {
-         organization = "dmitriyshub"
-
-       workspaces {
-         name = "github-actions-tmdb-api"
-         }
-       }
+#       cloud {
+#         organization = "dmitriyshub"
+#
+#       workspaces {
+#         name = "github-actions-tmdb-api"
+#         }
+#       }
      }
 
      # An example resource that does nothing.

@@ -13,9 +13,32 @@
        }
      }
 
-     # An example resource that does nothing.
-     resource "null_resource" "example" {
-       triggers = {
-         value = "A example resource that does nothing!"
+     resource "aws_vpc" "main" {
+       cidr_block = "10.0.0.0/16"
+       instance_tenancy = "default"
+
+       tags = {
+         Name = "main"
+       }
+     }
+
+     resource "aws_internet_gateway" "maingw" {
+       vpc_id = aws_vpc.main.id
+
+       tags = {
+         Name = "main-gw"
+       }
+     }
+
+     resource "aws_route_table" "mainroutetable" {
+       vpc_id = aws_vpc.main.id
+
+       route {
+         cidr_block = "10.0.0.0/16"
+         gateway_id = aws_internet_gateway.maingw.id
+       }
+
+       tags = {
+       Name = "main-route-table"
        }
      }

@@ -56,7 +56,7 @@ class MongoDBDAL:
 
         obj_id=self.search_image_file_id_by_name((movie_name))
         self.fs.delete(obj_id)
-        output = {'Status': 'Successfully Deleted' if obj_id  else "Nothing was Deleted."}
+        output = {'Status': 'Successfully Deleted' if obj_id  else "Nothing was Deleted"}
         return output
 
     def update_image_file_meta_data(self,movie_name,key_to_update,val_to_update):
@@ -72,7 +72,7 @@ class MongoDBDAL:
         myquery = {"_id": file_id}
         new_values = {"$set": {key_to_update: val_to_update}}
         db_update_response=mycol.update_one(myquery, new_values)
-        output = {'Status': 'Successfully Updated' if db_update_response.modified_count > 0 else "Nothing was updated."}
+        output = {'Status': 'Successfully Updated' if db_update_response.modified_count > 0 else "Nothing was Updated."}
         return output
 
 if __name__ == "__main__":

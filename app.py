@@ -38,6 +38,66 @@ def read(search_string):
     src = "data:image/gif;base64," + image
     return f'<img src={src}>'
 
+@app.route('/delete',methods=['GET','POST'])
+def delete():
+    if request.method == 'POST':
+        movie_name = request.form['name']
+        delete_movie = mdb.del_image_file(movie_name)
+        if delete_movie['Status'] == 'Successfully Deleted':
+            return Response(response=json.dumps(delete_movie),
+                            status=200,
+                            mimetype='application/json')
+        elif delete_movie['Status'] == 'Nothing was Deleted':
+            return Response(response=json.dumps(delete_movie),
+                            status=404,
+                            mimetype='application/json')
+        else:
+            return Response(response=json.dumps({"Status": "Something went Wrong"}),
+                            status=404,
+                            mimetype='application/json')
+
+    return render_template('delete_form.html')
+@app.route('/delete/<delete_string>', methods=['DELETE'])
+def deleted(delete_string):
+    delete_movie = mdb.del_image_file(delete_string)
+    if delete_movie['Status'] == 'Successfully Deleted':
+        return Response(response=json.dumps(delete_movie),
+                        status=200,
+                        mimetype='application/json')
+    elif delete_movie['Status'] == 'Nothing was Deleted':
+        return Response(response=json.dumps(delete_movie),
+                        status=404,
+                        mimetype='application/json')
+    else:
+        return Response(response=json.dumps({"Status": "Something went Wrong"}),
+                        status=404,
+                        mimetype='application/json')
+
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    if request.method == 'POST':
+        movie_name = request.form['name']
+        key_to_update = request.form['key']
+        value_to_update = request.form['value']
+        update_movie = mdb.update_image_file_meta_data(movie_name,key_to_update,value_to_update)
+        if update_movie['Status'] == 'Successfully Updated':
+            return Response(response=json.dumps(update_movie),
+                            status=200,
+                            mimetype='application/json')
+        elif update_movie['Status'] == 'Nothing was Updated':
+            return Response(response=json.dumps(update_movie),
+                            status=404,
+                            mimetype='application/json')
+        else:
+            return Response(response=json.dumps({"Status": "Something went Wrong"}),
+                            status=404,
+                            mimetype='application/json')
+
+
+    return render_template('update_form.html')
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080, host='0.0.0.0')

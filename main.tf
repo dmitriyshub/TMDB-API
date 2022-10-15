@@ -121,7 +121,7 @@ resource "aws_route_table_association" "subnet_public_assosiacion" {
 #######Infrastracture###########EC2###########EC2########################
 #6 create ec2
 resource "template_file" "web-userdata" {
-    filename = "ec2-user-data.sh"
+    template = "ec2-user-data.sh"
 }
 resource "aws_instance" "public-ec2" { # terraform id&name
   ami           = data.aws_ami.amazon-linux-2.id

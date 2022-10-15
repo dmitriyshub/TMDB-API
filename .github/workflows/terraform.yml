@@ -4,13 +4,13 @@
 # to the "main" branch, `terraform apply` will be executed.
 #
 # Documentation for `hashicorp/setup-terraform` is located here: https://github.com/hashicorp/setup-terraform
-name: 'Terraform'
+name: 'Terraform-Apply'
 on: [workflow_dispatch]
 permissions:
   contents: read
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform-Apply'
     runs-on: ubuntu-latest
     environment: production
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest

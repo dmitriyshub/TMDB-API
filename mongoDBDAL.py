@@ -33,11 +33,15 @@ class MongoDBDAL:
         search and read file from db
         saves it in wroking folder
         """
-        file = self.fs.find_one({"movie_name": movie_name}).read()
+        try:
+            file = self.fs.find_one({"movie_name": movie_name}).read()
 
-        with open(self.content_path + movie_name + ".jpeg", 'wb') as w:
-            w.write(file)
-        return file
+            with open(self.content_path + movie_name + ".jpeg", 'wb') as w:
+                w.write(file)
+            return file
+        except:
+            return None
+
 
     def search_image_file_id_by_name(self, movie_name):
         """

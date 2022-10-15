@@ -18,3 +18,10 @@
          value = "A example resource that does nothing!"
        }
      }
+
+resource "aws_vpc" "vpc" { # terraform id&name
+  cidr_block = "172.16.0.0/16" # specify the network
+  tags = {
+      Name = "dmitriyshub-vpc" # aws Tag
+  }
+}

@@ -10,7 +10,7 @@
 #         workspaces {
 #           name = "github-actions-tmdb-api"
 #         }
-       }
+#       }
        required_providers {
          aws = {
          source = "hashicorp/aws"

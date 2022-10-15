@@ -2,14 +2,14 @@
 #   Example `main.tf`:
      # The configuration for the `remote` backend.
      terraform {
-       backend "remote" {
-         # The name of your Terraform Cloud organization.
-         organization = "dmitriyshub"
-
-         # The name of the Terraform Cloud workspace to store Terraform state files in.
-         workspaces {
-           name = "github-actions-tmdb-api"
-         }
+#       backend "remote" {
+#         # The name of your Terraform Cloud organization.
+#         organization = "dmitriyshub"
+#
+#         # The name of the Terraform Cloud workspace to store Terraform state files in.
+#         workspaces {
+#           name = "github-actions-tmdb-api"
+#         }
        }
        required_providers {
          aws = {
@@ -19,13 +19,13 @@
          source = "hashicorp/random"
        }
      }
-#       cloud {
-#         organization = "dmitriyshub"
-#
-#       workspaces {
-#         name = "github-actions-tmdb-api"
-#         }
-#       }
+       cloud {
+         organization = "dmitriyshub"
+
+       workspaces {
+         name = "github-actions-tmdb-api"
+         }
+       }
      }
 
      # An example resource that does nothing.

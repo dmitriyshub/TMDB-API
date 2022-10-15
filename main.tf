@@ -11,7 +11,23 @@
            name = "github-actions-tmdb-api"
          }
        }
+       required_providers {
+         aws = {
+         source = "hashicorp/aws"
+         }
+         random = {
+         source = "hashicorp/random"
+       }
      }
+       cloud {
+         organization = "dmitriyshub"
+
+       workspaces {
+         name = "github-actions-tmdb-api"
+         }
+       }
+     }
+
      # An example resource that does nothing.
      resource "null_resource" "example" {
        triggers = {

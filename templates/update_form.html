@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
     <html lang="en">
         <head>
-            <title>Search A Movie Poster </title>
+            <title>Update A Movie Poster </title>
         </head>
         <body>
             <div id="container">
                 <div class="form">
-                    <form action="/update" method="POST">
+                    <form action="/mongo/update" method="POST">
+                        <input type="hidden" name="_method" value="PUT" />
                         <div id="input-1">
                             <label for="name">Insert Movie Name:</label>
                             <input type="text" name="name" id='name' required>

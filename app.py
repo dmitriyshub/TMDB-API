@@ -23,23 +23,51 @@ def user(name):
 def load_insert_item_html():
     if request.method == 'POST':
         movie_name = request.form['name']
-        imdb_id , file_name = TMDB.search_downloader(movie_name)
-        mdb.write_image_file(content_temp_path + file_name, movie_name,imdb_id)
         binary_file = mdb.read_image_file(movie_name)
+        if binary_file == None:
+            try:
+                imdb_id, file_name = TMDB.search_downloader(movie_name)
+            except:
+                return Response(response=json.dumps({"Status": "API Error Try Again"}),
+                                status=403,
+                                mimetype='application/json')
+
+            mdb.write_image_file(content_temp_path + file_name, movie_name, imdb_id)
+            binary_file = mdb.read_image_file(movie_name)
+            image = b64encode(binary_file).decode("utf-8")
+            src = "data:image/gif;base64," + image
+            return f'<img src={src}>'
+        else:
+            image = b64encode(binary_file).decode("utf-8")
+            src = "data:image/gif;base64," + image
+            return f'<img src={src}>'
+
+    return render_template('new_form.html')
+
+@app.route('/mongo', methods=['GET','POST'])
+def read_form():
+    if request.method == 'POST':
+        search_string = request.form['name']
+        binary_file = mdb.read_image_file(search_string)
+        if binary_file != None:
+            image = b64encode(binary_file).decode("utf-8")
+            src = "data:image/gif;base64," + image
+            return f'<img src={src}>'
+    return render_template('read_form.html')
+
+@app.route('/mongo/<search_string>', methods=['GET'])
+def read_url(search_string):
+    binary_file = mdb.read_image_file(search_string)
+    if binary_file != None:
         image = b64encode(binary_file).decode("utf-8")
         src = "data:image/gif;base64," + image
         return f'<img src={src}>'
-    return render_template('new_form.html')
+    return Response(response=json.dumps({"Status": "Not Found"}),
+                    status=404,
+                    mimetype='application/json')
 
-@app.route('/mongo/<search_string>', methods=['GET'])
-def read(search_string):
-    binary_file = mdb.read_image_file(search_string)
-    image = b64encode(binary_file).decode("utf-8")
-    src = "data:image/gif;base64," + image
-    return f'<img src={src}>'
-
-@app.route('/delete',methods=['GET','POST'])
-def delete():
+@app.route('/mongo/delete',methods=['GET','POST'])
+def delete_form():
     if request.method == 'POST':
         movie_name = request.form['name']
         delete_movie = mdb.del_image_file(movie_name)
@@ -57,8 +85,9 @@ def delete():
                             mimetype='application/json')
 
     return render_template('delete_form.html')
-@app.route('/delete/<delete_string>', methods=['DELETE'])
-def deleted(delete_string):
+
+@app.route('/mongo/delete/<delete_string>', methods=['DELETE'])
+def delete_url(delete_string):
     delete_movie = mdb.del_image_file(delete_string)
     if delete_movie['Status'] == 'Successfully Deleted':
         return Response(response=json.dumps(delete_movie),
@@ -73,9 +102,9 @@ def deleted(delete_string):
                         status=404,
                         mimetype='application/json')
 
-@app.route('/update', methods=['GET', 'POST'])
-def update():
-    if request.method == 'POST':
+@app.route('/mongo/update', methods=['GET', 'POST', 'PUT'])
+def update_form():
+    if request.method == 'POST' or request.method == 'PUT':
         movie_name = request.form['name']
         key_to_update = request.form['key']
         value_to_update = request.form['value']
@@ -92,7 +121,6 @@ def update():
             return Response(response=json.dumps({"Status": "Something went Wrong"}),
                             status=404,
                             mimetype='application/json')
-
 
     return render_template('update_form.html')
 

@@ -2,6 +2,12 @@
 #   Example `main.tf`:
      # The configuration for the `remote` backend.
      terraform {
+       required_providers {
+         aws = {
+           source  = "hashicorp/aws"
+           version = "~> 4.16"
+         }
+       }
        backend "remote" {
          # The name of your Terraform Cloud organization.
          organization = "dmitriyshub"
@@ -11,8 +17,12 @@
            name = "github-actions-tmdb-api"
          }
        }
+         required_version = ">= 1.2.0"
      }
 
+     provider "aws" {
+       region  = "eu-central-1"
+     }
 
      resource "aws_vpc" "main" {
        cidr_block = "10.0.0.0/16"

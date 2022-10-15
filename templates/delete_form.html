@@ -7,6 +7,7 @@
             <div id="container">
                 <div class="form">
                     <form action="/mongo/delete" method="POST">
+                        <input type="hidden" name="_method" value="DELETE" />
                         <div id="input-1">
                             <label for="name">Insert Movie Name (Delete):</label>
                             <input type="text" name="name" id='name' required>

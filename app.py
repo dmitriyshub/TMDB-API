@@ -44,7 +44,7 @@ def load_insert_item_html():
 
     return render_template('new_form.html')
 
-@app.route('/mongo', methods=['GET','POST'])
+@app.route('/mongo/search', methods=['GET','POST'])
 def read_form():
     if request.method == 'POST':
         search_string = request.form['name']
@@ -55,7 +55,7 @@ def read_form():
             return f'<img src={src}>'
     return render_template('read_form.html')
 
-@app.route('/mongo/<search_string>', methods=['GET'])
+@app.route('/mongo/search/url/<search_string>', methods=['GET'])
 def read_url(search_string):
     binary_file = mdb.read_image_file(search_string)
     if binary_file != None:
@@ -86,7 +86,7 @@ def delete_form():
 
     return render_template('delete_form.html')
 
-@app.route('/mongo/delete/<delete_string>', methods=['DELETE'])
+@app.route('/mongo/delete/url/<delete_string>', methods=['DELETE'])
 def delete_url(delete_string):
     delete_movie = mdb.del_image_file(delete_string)
     if delete_movie['Status'] == 'Successfully Deleted':

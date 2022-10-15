@@ -1,6 +1,7 @@
 #docker ignore file
 #
 .git
+.github
 .gitignore
 .idea
 .cache

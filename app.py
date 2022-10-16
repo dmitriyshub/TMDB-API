@@ -4,6 +4,7 @@ from TMDBDownloader import TMDBDownloader,configure
 #from secret.config import content_temp_path
 from base64 import b64encode
 
+configure()
 app = Flask(__name__)
 mdb = MongoDBDAL("movies", "db_host", 27017)
 TMDB = TMDBDownloader()

@@ -3,3 +3,4 @@ IMDbPY==2022.7.9
 #cinemagoer
 pymongo==4.2.0
 Flask==2.2.2
+python-dotenv==0.21.0

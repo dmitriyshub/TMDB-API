@@ -9,7 +9,6 @@
 __pycache__
 **/__pycache__
 venv
-.env
 
 # Repo files
 secret

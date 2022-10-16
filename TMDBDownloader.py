@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 
 def configure():
-    load_dotenv()
+    load_dotenv('secret/.env')
 
 def size_str_to_int(x):
     return float("inf") if x == 'original' else int(x[1:])

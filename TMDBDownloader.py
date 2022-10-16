@@ -1,6 +1,11 @@
 import requests
 import imdb
-from secret.config import TMDB_API_Key_v3_auth
+#from secret.config import TMDB_API_Key_v3_auth # old key authentication
+import os
+from dotenv import load_dotenv
+
+def configure():
+    load_dotenv()
 
 def size_str_to_int(x):
     return float("inf") if x == 'original' else int(x[1:])
@@ -9,9 +14,11 @@ class TMDBDownloader:
     content_path = "content/"
 
     def __init__(self):
+        configure()
         self.CONFIG_PATTERN = 'http://api.themoviedb.org/3/configuration?api_key={key}' #url format
         self.IMG_PATTERN = 'http://api.themoviedb.org/3/movie/{imdbid}/images?api_key={key}'
-        self.KEY = TMDB_API_Key_v3_auth # api key
+        #self.KEY = TMDB_API_Key_v3_auth # api key
+        self.KEY = os.getenv('api_key') # api key
         self.url = self.CONFIG_PATTERN.format(key=self.KEY) # format key to url
         self.r = requests.get(self.url) # send request
         self.config = self.r.json() # response to json
@@ -36,7 +43,6 @@ class TMDBDownloader:
             # getting the id
             id = search[i].movieID
             list_ids.append(id)
-        print(list_ids)
         imdb_id = "tt" + str(list_ids[0])
         return imdb_id
 
@@ -68,6 +74,7 @@ class TMDBDownloader:
         return imdb_id, file_name
 
 def main():
+
     connector = TMDBDownloader()
     connector.search_downloader("spiderman")
 

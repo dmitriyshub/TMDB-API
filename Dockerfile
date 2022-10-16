@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -y \
     python3-pip
 
 WORKDIR /app
-COPY . /app
 RUN mkdir /app/content
+COPY . /app
 RUN pip3 install -r requirements.txt
 
 

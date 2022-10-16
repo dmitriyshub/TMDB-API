@@ -51,6 +51,7 @@ data "aws_ami" "amazon-linux-2" {
 # create private vpc
 resource "aws_vpc" "vpc" { # terraform id&name
   cidr_block = "172.16.0.0/16" # specify the network
+  enable_dns_hostnames = true
   tags = {
       Name = "tmdb-vpc" # aws Tag
       Env = var.Env_tag

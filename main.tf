@@ -153,7 +153,7 @@ resource "aws_security_group" "public_security_group" { # terraform id&name
   vpc_id      = aws_vpc.vpc.id # attach security group to vpc
 
   dynamic "ingress" {
-    for_each = ["80", "443", "8080"]
+    for_each = ["22","80", "443", "8080"]
     content {
       from_port   = ingress.value
       to_port     = ingress.value

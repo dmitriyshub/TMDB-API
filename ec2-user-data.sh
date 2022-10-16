@@ -3,7 +3,7 @@ yum update -y
 yum install -y git
 git clone https://github.com/dmitriyshub/TMDB-API.git /home/ec2-user/app
 mkdir /home/ec2-user/.aws
-
+mkdir /home/ec2-user/app/secret
 #configure aws region
 echo '[default]' >> /home/ec2-user/.aws/config
 echo 'output = json' >> /home/ec2-user/.aws/config

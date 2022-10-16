@@ -1,6 +1,6 @@
 from flask import Flask, request, json , Response, render_template
 from mongoDBDAL import MongoDBDAL
-from TMDBDownloader import TMDBDownloader
+from TMDBDownloader import TMDBDownloader,configure
 #from secret.config import content_temp_path
 from base64 import b64encode
 

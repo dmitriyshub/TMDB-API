@@ -148,7 +148,7 @@ resource "aws_instance" "public-ec2" { # terraform id&name
 
 #7 create security group
 resource "aws_security_group" "public_security_group" { # terraform id&name
-  name        = "bastion1 security group"
+  name        = "Public security group"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.vpc.id # attach security group to vpc
 

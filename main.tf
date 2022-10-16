@@ -86,7 +86,7 @@ resource "aws_instance" "public-ec2" { # terraform id&name
   ami           = data.aws_ami.amazon-linux-2.id
   instance_type = var.instance_type
   key_name = var.key_pair
-  #user_data = "${file("ec2-user-data.sh")}"
+  user_data = "${file("ec2-user-data.sh")}"
 
   tags = {
     Name = var.instance_name

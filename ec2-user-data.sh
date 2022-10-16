@@ -8,7 +8,7 @@ mkdir /home/ec2-user/app/secret
 echo '[default]' >> /home/ec2-user/.aws/config
 echo 'output = json' >> /home/ec2-user/.aws/config
 echo 'region = eu-central-1' >> /home/ec2-user/.aws/config
-
+sleep 10
 #get api token .env
 aws ssm get-parameter --name /dev/api_key --with-decryption --query 'Parameter.Value' | cut -d "\"" -f 2 > /home/ec2-user/app/secret/.env
 sudo chown -R ec2-user:ec2-user /home/ec2-user/app /home/ec2-user/.aws /home/ec2-user/app/secret /home/ec2-user/.aws/config /home/ec2-user/app/secret/.env

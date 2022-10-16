@@ -1,6 +1,6 @@
 from flask import Flask, request, json , Response, render_template
 from mongoDBDAL import MongoDBDAL
-from TMDBDownloader import TMDBDownloader,configure
+from TMDBDownloader import TMDBDownloader
 #from secret.config import content_temp_path
 from base64 import b64encode
 
@@ -20,7 +20,7 @@ def user(name):
 
 
 @app.route('/search', methods=['GET', 'POST'])
-def load_insert_item_html():
+def search_and_download():
     if request.method == 'POST':
         movie_name = request.form['name']
         binary_file = mdb.read_image_file(movie_name)
@@ -28,9 +28,11 @@ def load_insert_item_html():
             try:
                 imdb_id, file_name = TMDB.search_downloader(movie_name)
             except:
-                return Response(response=json.dumps({"Status": "API Error Try Again"}),
-                                status=403,
-                                mimetype='application/json')
+                return render_template('new_form.html')
+                # return Response(response=json.dumps({"Status": "API Error Try Again"}),
+                #                 status=403,
+                #                 mimetype='application/json'
+                #                 )
 
             mdb.write_image_file(content_temp_path + file_name, movie_name, imdb_id)
             binary_file = mdb.read_image_file(movie_name)

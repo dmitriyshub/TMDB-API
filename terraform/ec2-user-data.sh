@@ -3,7 +3,7 @@ account='[default]'
 output='output = json'
 region='region = eu-central-1'
 printf  "$account" "$output" "$region" > /home/$USER/.aws/config
-aws ssm get-parameter --name tmdb-api --with-decryption --query 'Parameter.Value' > .env
+aws ssm get-parameter --name /dev/api_key --with-decryption --query 'Parameter.Value' > .env
 
 yum update -y
 yum install -y git

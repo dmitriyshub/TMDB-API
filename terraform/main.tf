@@ -134,6 +134,7 @@ resource "aws_instance" "public-ec2" { # terraform id&name
   vpc_security_group_ids = [aws_security_group.public_security_group.id] # attach ec2 to security group
   subnet_id = aws_subnet.vpc_subnet1_public.id # attach ec2 to subnet
   associate_public_ip_address = true # get automatic public ip
+  iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
 
 
   credit_specification {
@@ -182,4 +183,8 @@ resource "aws_security_group_rule" "public_ssh_access" { # terraform id&name
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.public_security_group.id # attach rule to security group
+}
+
+locals {
+  account_id = aws_vpc.vpc.owner_id
 }

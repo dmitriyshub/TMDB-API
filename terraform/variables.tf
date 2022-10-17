@@ -1,4 +1,4 @@
-
+# Terraform Variables
 variable "region" {
   description = "AWS region"
   default     = "eu-central-1"
@@ -33,3 +33,4 @@ variable "key_pair" {
   description = "key pair name"
   default     = "tmdb-key-pair"
 }
+#################################################################

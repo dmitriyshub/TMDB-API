@@ -22,17 +22,24 @@
 10. Apply the Terraform stage in GitHub Actions
 11. Wait and copy DNS output from Terraform in GitHub Actions
 - http://ec2-255-255-255-255.region.compute.amazonaws.com:8080/
-## TMDB-API
-Create:/search \
-Read:/mongo/search \
-Update:/mongo/update \
-Delete:/mongo/delete
 
-by url:
-from API platform like postman or browser: \
+## TMDB-API HTML form:
+- Create:/search \
+- Read:/mongo/search \
+- Update:/mongo/update \
+- Delete:/mongo/delete
+
+## By URL:
+- from API platform like postman or browser: \
 /mongo/search/url/<search_string> method GET
 
-from API platform like postman: \
+- from API platform like postman: \
 /mongo/delete/url/<delete_string> method DELETE
+
+
+# Gonna try to make this with Terraform:
+
+![Tux, the Linux mascot](/MD/scaling-linux-architecture.png)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

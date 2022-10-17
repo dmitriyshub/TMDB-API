@@ -5,6 +5,7 @@
 .gitignore
 .idea
 .cache
+MD/*
 *.md
 __pycache__
 **/__pycache__

@@ -85,7 +85,7 @@ resource "aws_autoscaling_group" "auto_scaling_group" {
 #    id      = aws_launch_configuration.launch_template.id
 #    version = "$Latest"
 #  }
-    tag = {
+    tags = {
     Name = "auto-scaling-group"
     Env = var.Env_tag
     propagate_at_launch = true

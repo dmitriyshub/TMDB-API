@@ -1,7 +1,9 @@
 # Create VPC
 resource "aws_vpc" "vpc" { # terraform id&name
   cidr_block = "172.16.0.0/16" # specify the network
+  enable_dns_support = true
   enable_dns_hostnames = true
+  instance_tenancy = "default"
   tags = {
       Name = "vpc" # aws Tag
       Env = var.Env_tag
@@ -131,6 +133,10 @@ resource "aws_route_table_association" "subnet_private_assosiacion2" {
 # Elastic Ip Address
 resource "aws_eip" "eip" {
   vpc      = true
+  tags = {
+    Name = "eip" # aws tag
+    Env = var.Env_tag
+  }
 }
 #################################################################
 # Nat Gateway

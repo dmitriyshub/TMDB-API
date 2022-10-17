@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "public_ssh_access" { # terraform id&name
 }
 #################################################################
 resource "aws_security_group" "private_security_group" { # terraform id&name
-  name        = "Public security group"
+  name        = "Private security group"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.vpc.id # attach security group to vpc
 

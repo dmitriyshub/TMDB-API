@@ -9,7 +9,9 @@ services:
       - db_host
     ports:
         - "8080:8080"
+    restart: always
   db_host:
     image: mongo:latest
     ports:
       - "27017:27017"
+    restart: always

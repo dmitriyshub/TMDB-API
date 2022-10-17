@@ -119,11 +119,11 @@ resource "aws_route_table" "vpc_route_table_private" {
 
 #################################################################
 # Route Table Association PRIVATE
-resource "aws_route_table_association" "subnet_private_assosiacion" {
+resource "aws_route_table_association" "subnet_private_assosiacion1" {
   subnet_id      = aws_subnet.vpc_subnet1_private.id
   route_table_id = aws_route_table.vpc_route_table_private.id
 }
-resource "aws_route_table_association" "subnet_private_assosiacion" {
+resource "aws_route_table_association" "subnet_private_assosiacion2" {
   subnet_id      = aws_subnet.vpc_subnet2_private.id
   route_table_id = aws_route_table.vpc_route_table_private.id
 }

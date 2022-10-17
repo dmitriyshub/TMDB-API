@@ -68,7 +68,7 @@ resource "aws_security_group" "private_security_group" { # terraform id&name
   }
 }
 # Attach inbound SSH rules to Security Group
-resource "aws_security_group_rule" "public_ssh_access" { # terraform id&name
+resource "aws_security_group_rule" "private_ssh_access" { # terraform id&name
   type              = "ingress"
   from_port         = 22
   to_port           = 22

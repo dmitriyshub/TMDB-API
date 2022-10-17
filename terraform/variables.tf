@@ -4,12 +4,12 @@ variable "region" {
   default     = "eu-central-1"
 }
 
-variable "public_az" {
+variable "az_a" {
   description = "AWS Availability zone"
   default     = "eu-central-1a"
 }
 
-variable "private_az" {
+variable "az_b" {
   description = "AWS Availability zone"
   default     = "eu-central-1b"
 }

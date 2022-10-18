@@ -56,7 +56,7 @@ resource "aws_lb_target_group" "target_group" {
 # AutoScaling Launch Configuration Template
 resource "aws_launch_configuration" "launch_template" {
   name          = "launch configuration"
-  image_id      = ami-0af81cabb6b3ea5e9
+  image_id      = "ami-0af81cabb6b3ea5e9"
   instance_type = "t2.micro"
   enable_monitoring = true
   security_groups = [aws_security_group.public_security_group.id]

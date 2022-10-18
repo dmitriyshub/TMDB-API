@@ -59,7 +59,7 @@ resource "aws_launch_configuration" "launch_template" {
   image_id      = var.ami_id.id
   instance_type = "t2.micro"
   enable_monitoring = true
-  security_groups = [aws_security_group.public_security_group]
+  security_groups = [aws_security_group.public_security_group.id]
   key_name = var.key_pair
 #  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 }

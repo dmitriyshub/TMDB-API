@@ -36,7 +36,7 @@ resource "aws_lb_listener" "lb_listener" {
 # ALB Target Group
 resource "aws_lb_target_group" "target_group" {
   name        = "target-group"
-  target_type = "alb"
+  #target_type = "alb"
   port        = 8080
   protocol    = "HTTP"
   vpc_id      = aws_vpc.vpc.id

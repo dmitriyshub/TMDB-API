@@ -101,7 +101,7 @@
 #  #enabled_metrics = [GroupDesiredCapacity, GroupInServiceCapacity, GroupPendingCapacity, GroupMinSize, GroupMaxSize, GroupInServiceInstances, GroupPendingInstances, GroupStandbyInstances, GroupStandbyCapacity, GroupTerminatingCapacity, GroupTerminatingInstances, GroupTotalCapacity, GroupTotalInstances]
 #
 #
-#  load_balancers = [aws_lb.alb.id]
+#  #load_balancers = [aws_lb.alb.id]
 #  target_group_arns = [aws_lb_target_group.target_group.arn]
 #
 #

@@ -35,7 +35,7 @@ variable "key_pair" {
 }
 variable "ami_id" {
   description = "tmdb ami id"
-  default     = "ami-0aabcca2be9910313"
+  default     = "ami-0af81cabb6b3ea5e9"
 }
 
 #################################################################

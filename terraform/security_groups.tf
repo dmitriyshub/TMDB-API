@@ -5,7 +5,7 @@ resource "aws_security_group" "public_security_group" { # terraform id&name
   vpc_id      = aws_vpc.vpc.id # attach security group to vpc
 
   dynamic "ingress" {
-    for_each = ["80", "443", "8080"]
+    for_each = ["8080"]
     content {
       from_port   = ingress.value
       to_port     = ingress.value
@@ -39,8 +39,8 @@ resource "aws_security_group_rule" "public_ssh_access" { # terraform id&name
   security_group_id = aws_security_group.public_security_group.id # attach rule to security group
 }
 #################################################################
-resource "aws_security_group" "private_security_group" { # terraform id&name
-  name        = "Private security group"
+resource "aws_security_group" "alb_security_group" { # terraform id&name
+  name        = "alb security group"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.vpc.id # attach security group to vpc
 
@@ -68,11 +68,14 @@ resource "aws_security_group" "private_security_group" { # terraform id&name
   }
 }
 # Attach inbound SSH rules to Security Group
-resource "aws_security_group_rule" "private_ssh_access" { # terraform id&name
+resource "aws_security_group_rule" "alb_ssh_access" { # terraform id&name
   type              = "ingress"
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
   cidr_blocks       = ["172.16.0.0/16"]
-  security_group_id = aws_security_group.private_security_group.id # attach rule to security group
+  security_group_id = aws_security_group.alb_security_group.id # attach rule to security group
 }
+
+
+

@@ -103,32 +103,32 @@ resource "aws_route_table_association" "subnet_public_assosiacion2" {
   subnet_id      = aws_subnet.vpc_subnet2_public.id
   route_table_id = aws_route_table.vpc_route_table_public.id
 }
-#################################################################
-# Route Table for VPC PRIVATE
-resource "aws_route_table" "vpc_route_table_private" {
-  vpc_id = aws_vpc.vpc.id # attach to vpc
-
-  route {
-    cidr_block = "0.0.0.0/0" # ip range for this route
-    #gateway_id = aws_nat_gateway.nat.id # attach to nat gateway
-  }
-
-  tags = {
-    Name = "route-table-private" # aws tag
-    Env = var.Env_tag
-  }
-}
-
-#################################################################
-# Route Table Association PRIVATE
-resource "aws_route_table_association" "subnet_private_assosiacion1" {
-  subnet_id      = aws_subnet.vpc_subnet1_private.id
-  route_table_id = aws_route_table.vpc_route_table_private.id
-}
-resource "aws_route_table_association" "subnet_private_assosiacion2" {
-  subnet_id      = aws_subnet.vpc_subnet2_private.id
-  route_table_id = aws_route_table.vpc_route_table_private.id
-}
+##################################################################
+## Route Table for VPC PRIVATE
+#resource "aws_route_table" "vpc_route_table_private" {
+#  vpc_id = aws_vpc.vpc.id # attach to vpc
+#
+#  route {
+#    cidr_block = "0.0.0.0/0" # ip range for this route
+#    #gateway_id = aws_nat_gateway.nat.id # attach to nat gateway
+#  }
+#
+#  tags = {
+#    Name = "route-table-private" # aws tag
+#    Env = var.Env_tag
+#  }
+#}
+#
+##################################################################
+## Route Table Association PRIVATE
+#resource "aws_route_table_association" "subnet_private_assosiacion1" {
+#  subnet_id      = aws_subnet.vpc_subnet1_private.id
+#  route_table_id = aws_route_table.vpc_route_table_private.id
+#}
+#resource "aws_route_table_association" "subnet_private_assosiacion2" {
+#  subnet_id      = aws_subnet.vpc_subnet2_private.id
+#  route_table_id = aws_route_table.vpc_route_table_private.id
+#}
 ##################################################################
 ## Elastic Ip Address
 #resource "aws_eip" "eip" {

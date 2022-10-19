@@ -110,7 +110,7 @@ resource "aws_route_table" "vpc_route_table_private" {
 
   route {
     cidr_block = "0.0.0.0/0" # ip range for this route
-    gateway_id = aws_nat_gateway.nat.id # attach to internet gateway
+    #gateway_id = aws_nat_gateway.nat.id # attach to nat gateway
   }
 
   tags = {
@@ -129,28 +129,28 @@ resource "aws_route_table_association" "subnet_private_assosiacion2" {
   subnet_id      = aws_subnet.vpc_subnet2_private.id
   route_table_id = aws_route_table.vpc_route_table_private.id
 }
-#################################################################
-# Elastic Ip Address
-resource "aws_eip" "eip" {
-  vpc      = true
-  tags = {
-    Name = "eip" # aws tag
-    Env = var.Env_tag
-  }
-}
-#################################################################
-# Nat Gateway
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.eip.id
-  subnet_id     = aws_subnet.vpc_subnet1_public.id
-
-  tags = {
-    Name = "Nat Gateway" # aws tag
-    Env = var.Env_tag
-  }
-
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.vpc_internet_gateway]
-}
-#################################################################
+##################################################################
+## Elastic Ip Address
+#resource "aws_eip" "eip" {
+#  vpc      = true
+#  tags = {
+#    Name = "eip" # aws tag
+#    Env = var.Env_tag
+#  }
+#}
+##################################################################
+## Nat Gateway
+#resource "aws_nat_gateway" "nat" {
+#  allocation_id = aws_eip.eip.id
+#  subnet_id     = aws_subnet.vpc_subnet1_public.id
+#
+#  tags = {
+#    Name = "Nat Gateway" # aws tag
+#    Env = var.Env_tag
+#  }
+#
+#  # To ensure proper ordering, it is recommended to add an explicit dependency
+#  # on the Internet Gateway for the VPC.
+#  depends_on = [aws_internet_gateway.vpc_internet_gateway]
+#}
+##################################################################

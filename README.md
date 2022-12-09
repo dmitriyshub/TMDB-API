@@ -55,6 +55,23 @@
 
 
 ![Tux, the Linux mascot](/images/scaling-linux-architecture.png)
+![Tux, the Linux mascot](/images/Screenshot_11.png)
+![Tux, the Linux mascot](/images/Screenshot_13.png)
+![Tux, the Linux mascot](/images/Screenshot_14.png)
+![Tux, the Linux mascot](/images/Screenshot_19.png)
+![Tux, the Linux mascot](/images/Screenshot_21.png)
+![Tux, the Linux mascot](/images/Screenshot_22.png)
+![Tux, the Linux mascot](/images/Screenshot_23.png)
+![Tux, the Linux mascot](/images/Screenshot_24.png)
+![Tux, the Linux mascot](/images/Screenshot_25.png)
+![Tux, the Linux mascot](/images/Screenshot_27.png)
+![Tux, the Linux mascot](/images/Screenshot_28.png)
+![Tux, the Linux mascot](/images/Screenshot_30.png)
+![Tux, the Linux mascot](/images/Screenshot_31.png)
+![Tux, the Linux mascot](/images/Screenshot_32.png)
+![Tux, the Linux mascot](/images/Screenshot_33.png)
+![Tux, the Linux mascot](/images/Screenshot_34.png)
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

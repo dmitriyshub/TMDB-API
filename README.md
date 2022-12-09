@@ -54,7 +54,7 @@
 # Gonna try to make this with Terraform:
 
 
-![Tux, the Linux mascot](/MD/scaling-linux-architecture.png)
+![Tux, the Linux mascot](/images/scaling-linux-architecture.png)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
